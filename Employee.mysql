@@ -1,0 +1,188 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| company            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> use company;
+Database changed
+
+mysql> create table Employee
+    -> (Emp_no int not null,
+    -> Emp_name varchar(20) not null,
+    -> Adress varchar(20) not null,
+    -> Sex varchar(20) not null,
+    -> Dept varchar(20) not null,
+    -> Salary int,
+    -> Doj date not null,
+    -> Branch varchar(20),
+    -> primary key(Emp_no));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> describe employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Emp_no   | int         | NO   | PRI | NULL    |       |
+| Emp_name | varchar(20) | NO   |     | NULL    |       |
+| Adress   | varchar(20) | NO   |     | NULL    |       |
+| Sex      | varchar(20) | NO   |     | NULL    |       |
+| Dept     | varchar(20) | NO   |     | NULL    |       |
+| Salary   | int         | YES  |     | NULL    |       |
+| Doj      | date        | NO   |     | NULL    |       |
+| Branch   | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec
+
+mysql> insert into Employee
+    -> values
+    -> (1,'Anu','koyilandy','female','finance',15000,'1998-05-06','cs'),
+    -> (2,'Aru','koyilandy','female','finance',15000,'1995-05-10','cs'),
+    -> (3,'jan','calicut','male','purchase',12000,'1993-04-12','marketing'),
+    -> (4,'smith','trivandrum','male','sales',10000,'1997-03-11','hardware');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select *from employee;
++--------+----------+------------+--------+----------+--------+------------+-----------+
+| Emp_no | Emp_name | Adress     | Sex    | Dept     | Salary | Doj        | Branch    |
++--------+----------+------------+--------+----------+--------+------------+-----------+
+|      1 | Anu      | koyilandy  | female | finance  |  15000 | 1998-05-06 | cs        |
+|      2 | Aru      | koyilandy  | female | finance  |  15000 | 1995-05-10 | cs        |
+|      3 | jan      | calicut    | male   | purchase |  12000 | 1993-04-12 | marketing |
+|      4 | smith    | trivandrum | male   | sales    |  10000 | 1997-03-11 | hardware  |
++--------+----------+------------+--------+----------+--------+------------+-----------+
+4 rows in set (0.00 sec)
+
+
+mysql> update employee
+    -> set adress ='keezhariyur'
+    -> where Emp_no=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from employee;
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+| Emp_no | Emp_name | Adress      | Sex    | Dept     | Salary | Doj        | Branch    |
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+|      1 | Anu      | koyilandy   | female | finance  |  15000 | 1998-05-06 | cs        |
+|      2 | Aru      | keezhariyur | female | finance  |  15000 | 1995-05-10 | cs        |
+|      3 | jan      | calicut     | male   | purchase |  12000 | 1993-04-12 | marketing |
+|      4 | smith    | trivandrum  | male   | sales    |  10000 | 1997-03-11 | hardware  |
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> delete from employee
+    -> where Emp_no=4;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from employee;
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+| Emp_no | Emp_name | Adress      | Sex    | Dept     | Salary | Doj        | Branch    |
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+|      1 | Anu      | koyilandy   | female | finance  |  15000 | 1998-05-06 | cs        |
+|      2 | Aru      | keezhariyur | female | finance  |  15000 | 1995-05-10 | cs        |
+|      3 | jan      | calicut     | male   | purchase |  12000 | 1993-04-12 | marketing |
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+3 rows in set (0.00 sec)
+
+
+mysql> select Emp_no,salary from Employee;
++--------+--------+
+| Emp_no | salary |
++--------+--------+
+|      1 |  15000 |
+|      2 |  15000 |
+|      3 |  12000 |
++--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select avg(salary) as 'average salary'
+    -> from Employee;
++----------------+
+| average salary |
++----------------+
+|     14000.0000 |
++----------------+
+1 row in set (0.01 sec)
+
+
+mysql> select count(*) from Employee;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select distinct count(*) from Employee;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) as 'total salary' from Employee
+    -> group by Emp_name
+    -> having count(Emp_name)>1;
+Empty set (0.00 sec)
+
+mysql> select sum(salary) from Employee
+    -> where salary>12000;
++-------------+
+| sum(salary) |
++-------------+
+|       30000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select Emp_name from Employee
+    -> order by Emp_name desc;
++----------+
+| Emp_name |
++----------+
+| jan      |
+| Aru      |
+| Anu      |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> update employee
+    -> set Emp_name='martin'
+    -> where Emp_no=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee
+    -> set  salary=25000
+    -> where Emp_no=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from Employee;
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+| Emp_no | Emp_name | Adress      | Sex    | Dept     | Salary | Doj        | Branch    |
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+|      1 | Anu      | koyilandy   | female | finance  |  15000 | 1998-05-06 | cs        |
+|      2 | Aru      | keezhariyur | female | finance  |  15000 | 1995-05-10 | cs        |
+|      3 | martin   | calicut     | male   | purchase |  25000 | 1993-04-12 | marketing |
++--------+----------+-------------+--------+----------+--------+------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Employee
+    -> where Emp_name='martin' and salary>20000;
++--------+----------+---------+------+----------+--------+------------+-----------+
+| Emp_no | Emp_name | Adress  | Sex  | Dept     | Salary | Doj        | Branch    |
++--------+----------+---------+------+----------+--------+------------+-----------+
+|      3 | martin   | calicut | male | purchase |  25000 | 1993-04-12 | marketing |
++--------+----------+---------+------+----------+--------+------------+-----------+
+1 row in set (0.00 sec)
