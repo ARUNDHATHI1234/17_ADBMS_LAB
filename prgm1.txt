@@ -1,0 +1,166 @@
+I.
+Consider the Company database with following tables:
+
+1.Employee 
+
+Emp_No (PRIMARY KEY)
+Emp_Name
+Address
+Sex
+Dept 
+Salary
+DOJ
+Branch
+
+2.Department
+
+Dept_No (Primary Key)
+DName
+Mgr_Id
+Mgr_Strtdate
+
+
+Perform the following: 
+1. Create Company database 
+
+mysql> create database company;
+Query OK, 1 row affected (0.01 sec)
+
+2. Viewing all databases 
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| company            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+
+3. Viewing all Tables in a Database, 
+
+mysql> use company;
+Database changed
+
+mysql> show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| customers         |
+| department        |
+| dept              |
+| emp               |
+| employee1         |
+| employee2         |
++-------------------+
+6 rows in set (0.03 sec)
+
+4. Creating Tables (With and Without Constraints) 
+
+mysql> create table Department
+    -> (Dept_No int NOT NULL,
+    -> Dname varchar(20) NOT NULL,
+    -> Mgr_id int not null,
+    -> Mgr_strtdate date not null,
+    -> primary key(Dept_No));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> describe department;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Dept_No      | int         | NO   | PRI | NULL    |       |
+| Dname        | varchar(20) | NO   |     | NULL    |       |
+| Mgr_id       | int         | NO   |     | NULL    |       |
+| Mgr_strtdate | date        | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+5. Inserting/Updating/Deleting Records in a Table 
+
+mysql> insert into Department
+    -> values
+    -> (1,'smith',1001,'2005-06-08'),
+    -> (2,'jhon',1002,'2006-06-10'),
+    -> (3,'maria',1003,'2009-04-10'),
+    -> (4,'Ann',1004,'2009-04-11');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+6. Saving (Commit) and Undoing (rollback) 
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+II.Consider the  Department table
+
+1. Rename the table Department as Dept
+
+mysql> alter table Department
+    -> rename to Dept;
+Query OK, 0 rows affected (0.07 sec)
+
+2. Add a new column Phone with not null constraints to the existing table Dept  
+
+mysql> alter table Dept
+    -> add phone int not null;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from Dept;
++---------+-------+--------+--------------+-------+
+| Dept_No | Dname | Mgr_id | Mgr_strtdate | phone |
++---------+-------+--------+--------------+-------+
+|       1 | smith |   1001 | 2005-06-08   |     0 |
+|       2 | jhon  |   1002 | 2006-06-10   |     0 |
+|       3 | maria |   1003 | 2009-04-10   |     0 |
+|       4 | Ann   |   1004 | 2009-04-11   |     0 |
++---------+-------+--------+--------------+-------+
+4 rows in set (0.00 sec)
+
+
+mysql> alter table Dept
+    -> rename column Dname to Dept_Name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from Dept;
++---------+-----------+--------+--------------+-------+
+| Dept_No | Dept_Name | Mgr_id | Mgr_strtdate | phone |
++---------+-----------+--------+--------------+-------+
+|       1 | smith     |   1001 | 2005-06-08   |     0 |
+|       2 | jhon      |   1002 | 2006-06-10   |     0 |
+|       3 | maria     |   1003 | 2009-04-10   |     0 |
+|       4 | Ann       |   1004 | 2009-04-11   |     0 |
++---------+-----------+--------+--------------+-------+
+4 rows in set (0.00 sec)
+
+4. Change the data type of column DName as CHAR with size 10 
+
+mysql> alter table Dept
+    -> modify Dept_Name char(10);
+Query OK, 4 rows affected (0.12 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> describe Dept;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| Dept_No      | int      | NO   | PRI | NULL    |       |
+| Dept_Name    | char(10) | YES  |     | NULL    |       |
+| Mgr_id       | int      | NO   |     | NULL    |       |
+| Mgr_strtdate | date     | NO   |     | NULL    |       |
+| phone        | int      | NO   |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+5. Delete table 
+
+mysql> drop table dept;
