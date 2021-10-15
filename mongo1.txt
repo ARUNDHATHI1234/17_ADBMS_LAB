@@ -1,0 +1,172 @@
+II.Build sample collections/documents to perform query operation.
+i.Create a database (Eg : MyCev)
+ii.Create a collection (Eg: db_mca)
+iii.  Create a collection (Eg: db_cs)
+iv.  Insert 10 data to the collection
+v.List the first 5 data from the collection (limit)
+vi.List the entire data except first 2 data (skip)
+vii.Sort the data by choosing any field in the collection
+viii.Delete data from the collection
+ix.Drop the collection (db_cs)
+x.Drop Database
+
+➢ Create a database (Eg : MyCev)> use MyCev
+
+switched to db MyCev
+
+➢ Create a collection (Eg: db_mca)
+
+> db.createCollection("db_mca")
+{ "ok" : 1 }
+
+➢ Create a collection (Eg: db_cs)
+
+> db.createCollection("db_cs")
+{ "ok" : 1 }
+
+
+> db.db_mca.insertOne({"Studentid":1,"Name":"Aru","Age":21})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("614aaad16fbf298a7592d0b6")
+}
+
+
+
+
+
+> db.db_mca.insert([
+... {
+... "Studentid":2,
+... "Name":"Aru",
+... "Age":22
+... },
+... {
+... "Studentid":3,
+... "Name":"Anu",
+... "Age":22
+... },
+... {
+... "Studentid":4,
+... "Name":"Arathi",
+... "Age":22
+... }])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.db_mca.insert([
+... {"Studentid":5,
+... "Name":"Aswana",
+... "Age":22
+... },
+... {
+... "Studentid":6,
+... "Name":"Amrutha",
+... "Age":21
+... },
+... {
+... "Studentid":7,
+... "Name":"Sruthi",
+... "Age":22
+... },
+... {
+... "studentid":8,
+... "Name":"Anjana",
+... "Age":21
+... },
+... {
+... "Studentid":9,
+... "Name":"Sruthi",
+... "Age":22
+... },
+... {
+... "studentid":10,
+... "Name":"Arya",
+... "Age":22
+... }])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 6,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+
+
+
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 6,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.db_mca.find()
+{ "_id" : ObjectId("614aaad16fbf298a7592d0b6"), "Studentid" : 1, "Name" : "Aru", "Age" : 21 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b7"), "Studentid" : 2, "Name" : "Aru", "Age" : 22 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b8"), "Studentid" : 3, "Name" : "Anu", "Age" : 22 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b9"), "Studentid" : 4, "Name" : "Arathi", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0ba"), "Studentid" : 5, "Name" : "Aswana", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bb"), "Studentid" : 6, "Name" : "Amrutha", "Age" : 21 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bc"), "Studentid" : 7, "Name" : "Sruthi", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bd"), "studentid" : 8, "Name" : "Anjana", "Age" : 21 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0be"), "Studentid" : 9, "Name" : "Sruthi", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bf"), "studentid" : 10, "Name" : "Arya", "Age" : 22 }
+> db.db_mca.find().limit(2)
+{ "_id" : ObjectId("614aaad16fbf298a7592d0b6"), "Studentid" : 1, "Name" : "Aru", "Age" : 21 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b7"), "Studentid" : 2, "Name" : "Aru", "Age" : 22 }
+> db.db_mca.find().limit(5)
+{ "_id" : ObjectId("614aaad16fbf298a7592d0b6"), "Studentid" : 1, "Name" : "Aru", "Age" : 21 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b7"), "Studentid" : 2, "Name" : "Aru", "Age" : 22 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b8"), "Studentid" : 3, "Name" : "Anu", "Age" : 22 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b9"), "Studentid" : 4, "Name" : "Arathi", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0ba"), "Studentid" : 5, "Name" : "Aswana", "Age" : 22 }
+> db.db_mca.find().skip(2)
+{ "_id" : ObjectId("614aac336fbf298a7592d0b8"), "Studentid" : 3, "Name" : "Anu", "Age" : 22 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b9"), "Studentid" : 4, "Name" : "Arathi", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0ba"), "Studentid" : 5, "Name" : "Aswana", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bb"), "Studentid" : 6, "Name" : "Amrutha", "Age" : 21 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bc"), "Studentid" : 7, "Name" : "Sruthi", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bd"), "studentid" : 8, "Name" : "Anjana", "Age" : 21 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0be"), "Studentid" : 9, "Name" : "Sruthi", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bf"), "studentid" : 10, "Name" : "Arya", "Age" : 22 }
+
+
+
+> db.db_mca.find().sort({"Name":1})
+{ "_id" : ObjectId("614aad996fbf298a7592d0bb"), "Studentid" : 6, "Name" : "Amrutha", "Age" : 21 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bd"), "studentid" : 8, "Name" : "Anjana", "Age" : 21 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b8"), "Studentid" : 3, "Name" : "Anu", "Age" : 22 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b9"), "Studentid" : 4, "Name" : "Arathi", "Age" : 22 }
+{ "_id" : ObjectId("614aaad16fbf298a7592d0b6"), "Studentid" : 1, "Name" : "Aru", "Age" : 21 }
+{ "_id" : ObjectId("614aac336fbf298a7592d0b7"), "Studentid" : 2, "Name" : "Aru", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bf"), "studentid" : 10, "Name" : "Arya", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0ba"), "Studentid" : 5, "Name" : "Aswana", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0bc"), "Studentid" : 7, "Name" : "Sruthi", "Age" : 22 }
+{ "_id" : ObjectId("614aad996fbf298a7592d0be"), "Studentid" : 9, "Name" : "Sruthi", "Age" : 22 }
+> db.db_mca.remove({"Name":"Anjana"})
+WriteResult({ "nRemoved" : 1 })
+>
+
+
+
+> db.dropdb_cs
+MyCev.dropdb_cs
+> db.dropMyCev
+MyCev.dropMyCev
+>
+
+

@@ -1,0 +1,86 @@
+III.Design a  Databases using MongoDB and perform CRUD operations.
+i.Create a database Myclass.
+ii.Create a collection named “db_students”
+Should contain this fields : { student_name,    student_rollno, mark[subject, mark] }
+Nb: Mark should be stored as array
+iii.Insert details of 10 students in a class
+iv.List the entire students in the class
+v.Update mark of any students in the collection “db_students”
+vi.Delete the data of first student in the collection
+
+ use Myclass
+switched to db Myclass
+> db.createCollection("db_Students")
+{ "ok" : 1 }
+
+
+
+> db.db_student.insert([{"student_name":"Amrutha","student_rollno":19,"mark":[{"maths":50}]},
+{"student_name":"Anu","student_rollno":12,"mark":[{"maths":60}]},
+{"student_name":"Arathi","student_rollno":15,"mark":[{"maths":55}]},
+{"student_name":"Aswana","student_rollno":21,"mark":[{"maths":50}]},
+{"student_name":"Ammu","student_rollno":11,"mark":[{"maths":45}]},
+{"student_name":"sruthi","student_rollno":55,"mark":[{"maths":52}]},
+{"student_name":"Anjana","student_rollno":13,"mark":[{"maths":50}]},
+{"student_name":"Aparna","student_rollno":14,"mark":[{"maths":53}]},
+{"student_name":"Athira","student_rollno":25,"mark":[{"maths":50}]}, {"student_name":"Akshaya","student_rollno":7,"mark":[{"maths":50}]}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 10,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+
+
+ db.db_student.find()
+{ "_id" : ObjectId("614ab98a6fbf298a7592d0c0"), "student_name" : "Aru", "student_rollno" : 17, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c1"), "student_name" : "Amrutha", "student_rollno" : 19, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c2"), "student_name" : "Anu", "student_rollno" : 12, "mark" : [ { "maths" : 60 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c3"), "student_name" : "Arathi", "student_rollno" : 15, "mark" : [ { "maths" : 55 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c4"), "student_name" : "Aswana", "student_rollno" : 21, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c5"), "student_name" : "Ammu", "student_rollno" : 11, "mark" : [ { "maths" : 45 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c6"), "student_name" : "sruthi", "student_rollno" : 55, "mark" : [ { "maths" : 52 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c7"), "student_name" : "Anjana", "student_rollno" : 13, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c8"), "student_name" : "Aparna", "student_rollno" : 14, "mark" : [ { "maths" : 53 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c9"), "student_name" : "Athira", "student_rollno" : 25, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0ca"), "student_name" : "Akshaya", "student_rollno" : 7, "mark" : [ { "maths" : 50 } ] }
+> db.db_student.upadteOne({"mark":[{"maths":55}]},{$set:{"mark":[{"maths:53}]}})
+
+
+
+db.db_student.updateOne({"mark":[{"maths":55}]},{$set:{"mark":[{"maths":53}]}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.db_student.find()
+{ "_id" : ObjectId("614ab98a6fbf298a7592d0c0"), "student_name" : "Aru", "student_rollno" : 17, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c1"), "student_name" : "Amrutha", "student_rollno" : 19, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c2"), "student_name" : "Anu", "student_rollno" : 12, "mark" : [ { "maths" : 60 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c3"), "student_name" : "Arathi", "student_rollno" : 15, "mark" : [ { "maths" : 53 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c4"), "student_name" : "Aswana", "student_rollno" : 21, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c5"), "student_name" : "Ammu", "student_rollno" : 11, "mark" : [ { "maths" : 45 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c6"), "student_name" : "sruthi", "student_rollno" : 55, "mark" : [ { "maths" : 52 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c7"), "student_name" : "Anjana", "student_rollno" : 13, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c8"), "student_name" : "Aparna", "student_rollno" : 14, "mark" : [ { "maths" : 53 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c9"), "student_name" : "Athira", "student_rollno" : 25, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0ca"), "student_name" : "Akshaya", "student_rollno" : 7, "mark" : [ { "maths" : 50 } ] }
+
+
+
+
+> db.db_student.remove({_id : ObjectId("614ab98a6fbf298a7592d0c0")})
+WriteResult({ "nRemoved" : 1 })
+> db.db_student.find()
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c1"), "student_name" : "Amrutha", "student_rollno" : 19, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c2"), "student_name" : "Anu", "student_rollno" : 12, "mark" : [ { "maths" : 60 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c3"), "student_name" : "Arathi", "student_rollno" : 15, "mark" : [ { "maths" : 53 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c4"), "student_name" : "Aswana", "student_rollno" : 21, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c5"), "student_name" : "Ammu", "student_rollno" : 11, "mark" : [ { "maths" : 45 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c6"), "student_name" : "sruthi", "student_rollno" : 55, "mark" : [ { "maths" : 52 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c7"), "student_name" : "Anjana", "student_rollno" : 13, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c8"), "student_name" : "Aparna", "student_rollno" : 14, "mark" : [ { "maths" : 53 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0c9"), "student_name" : "Athira", "student_rollno" : 25, "mark" : [ { "maths" : 50 } ] }
+{ "_id" : ObjectId("614abbc26fbf298a7592d0ca"), "student_name" : "Akshaya", "student_rollno" : 7, "mark" : [ { "maths" : 50 } ] }
+>
